@@ -1,0 +1,15 @@
+quarkus:
+
+  datasource:
+    db-kind: postgresql
+    username: example
+    password: example123
+    jdbc:
+      url: 'jdbc:postgresql://localhost:5432/example'
+      max-size: 3
+    metrics:
+      enabled: true
+
+  hibernate-orm:
+    database:
+      generation: update
