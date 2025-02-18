@@ -1,7 +1,15 @@
 package org.acme;
 
+import io.quarkus.logging.Log;
 import io.quarkus.narayana.jta.runtime.TransactionConfiguration;
+import io.smallrye.common.annotation.Blocking;
 import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.Uni;
+import io.vertx.core.Future;
+import io.vertx.core.Vertx;
+import io.vertx.core.net.NetClient;
+import io.vertx.core.net.NetClientOptions;
+import io.vertx.core.net.NetSocket;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -48,5 +56,15 @@ public class TestResource {
                 return entity;
             })
         ;
+    }
+
+    @Inject
+    SocketService socketService;
+
+    @GET
+    @Path("/test")
+    @Blocking
+    public Uni<Void> testConnectionClose() {
+        return socketService.send();
     }
 }
